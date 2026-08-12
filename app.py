@@ -1,6 +1,9 @@
 import streamlit as st
 import os
+from dotenv import load_dotenv
 from langchain_community.embeddings import HuggingFaceEmbeddings
+
+load_dotenv()
 
 
 from langchain_community.document_loaders import PyPDFLoader
@@ -158,9 +161,17 @@ if uploaded_files:
     db = FAISS.from_documents(chunks, embeddings)
 
 
+    groq_api_key = os.environ.get("GROQ_API_KEY")
+    if not groq_api_key:
+        st.error(
+            "GROQ_API_KEY is not set. Copy .env.example to .env and add your key "
+            "from https://console.groq.com, then restart the app."
+        )
+        st.stop()
+
     llm = ChatGroq(
         model="llama-3.1-8b-instant",
-        groq_api_key=""
+        groq_api_key=groq_api_key
     )
 
     qa = RetrievalQA.from_chain_type(

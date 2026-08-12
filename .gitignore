@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Secrets
+.env
+
+# Runtime artifacts
+temp_*.pdf
+*.faiss
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Media (demo videos live in GitHub Releases)
+*.mp4
+*.mov
